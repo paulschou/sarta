@@ -2,6 +2,7 @@
 # Makefile make_sarta_df (dual frequency) for SARTA v1.08
 #
 
+
 # ------------
 # Object files
 # ------------
@@ -26,7 +27,7 @@ HDFLIB   = -L$(HDFHOME)/lib -lmfhdf -ldf -ljpeg -lz
 # RTP info
 # --------
 # set RTPHOME to point to the local RTP installation
-RTPHOME = ../../rtp/rtpV201
+RTPHOME = ../../rtp/rtpV201$(ARCH)
 
 # RTP library
 RTPLIB = -L$(RTPHOME)/lib -lrtp
@@ -99,8 +100,8 @@ F77 = ifort
 # Build
 # -----
 sarta: $(OBJS)
-	$(F77) $(OBJS) $(RTPLIB) $(HDFLIB) $(FLIB)
+	$(F77) $(FFLAGS) $(OBJS) $(RTPLIB) $(HDFLIB) $(FLIB)
 
 # Compile source to object files
 .f.o:
-	$(F77) -c $(OPT) $(RTPINC) $*.f
+	$(F77) $(FFLAGS) -c $(OPT) $(RTPINC) $*.f
